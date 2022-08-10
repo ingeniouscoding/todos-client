@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginPageComponent, RegisterPageComponent } from './components';
-import { AuthEffects } from './effects';
+import { effects } from './effects';
 import * as fromAuth from './reducers';
 
 @NgModule({
@@ -19,7 +19,7 @@ import * as fromAuth from './reducers';
     AuthRoutingModule,
     ReactiveFormsModule,
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers),
-    EffectsModule.forFeature([AuthEffects]),
+    EffectsModule.forFeature(effects),
   ],
 })
 export class AuthModule { }

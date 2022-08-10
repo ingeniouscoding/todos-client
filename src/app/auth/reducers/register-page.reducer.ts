@@ -1,5 +1,6 @@
-import { createReducer, on } from "@ngrx/store";
-import { AuthApiActions, RegisterPageActions } from "../actions";
+import { createReducer, on } from '@ngrx/store';
+
+import { AuthApiActions, RegisterPageActions } from '../actions';
 
 export const registerPageFeatureKey = 'registerPage';
 

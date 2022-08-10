@@ -1,5 +1,6 @@
-import { createReducer, on } from "@ngrx/store";
-import { AuthApiActions, LoginPageActions } from "../actions";
+import { createReducer, on } from '@ngrx/store';
+
+import { AuthApiActions, LoginPageActions } from '../actions';
 
 export const loginPageFeatureKey = 'loginPage';
 
@@ -29,5 +30,5 @@ export const reducer = createReducer(
     ...state,
     isPending: false,
     error,
-  }))
+  })),
 );

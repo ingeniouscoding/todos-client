@@ -8,7 +8,3 @@ export interface RegisterCredentials {
   email: string;
   password: string;
 }
-
-export interface RefreshCredentials {
-  refresh_token: string;
-}

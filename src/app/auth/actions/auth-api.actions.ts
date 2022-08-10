@@ -31,3 +31,12 @@ export const refreshFailure = createAction(
   '[Auth/API] Refresh Failure',
   props<{ error: any; }>()
 );
+
+export const logoutSuccess = createAction(
+  '[Auth/API] Logout Success'
+);
+
+export const logoutFailure = createAction(
+  '[Auth/API] Logout Failure',
+  props<{ error: any; }>()
+);
