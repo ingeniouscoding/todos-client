@@ -1,0 +1,24 @@
+<p>register-page works!</p>
+
+<form [formGroup]="fg" (ngSubmit)="onRegister()">
+
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name">
+  </div>
+
+  <div>
+    <label for="name">Email</label>
+    <input type="text" id="email" formControlName="email">
+  </div>
+
+  <div>
+    <label for="name">Password</label>
+    <input type="text" id="password" formControlName="password">
+  </div>
+
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+
+</form>
