@@ -21,12 +21,9 @@ export const reducer = createReducer(
     AuthApiActions.loginSuccess,
     AuthApiActions.registerSuccess,
     AuthApiActions.refreshSuccess,
-    (state, { tokens }) => ({
+    (state) => ({
       ...state,
       isAuthenticated: true,
-      user: JSON.parse(
-        window.atob(tokens.refresh_token.split('.')[1])
-      ),
     })
   ),
   on(

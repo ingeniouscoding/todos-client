@@ -1,4 +1,4 @@
-import { props, createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 import { JwtTokens } from '../models';
 

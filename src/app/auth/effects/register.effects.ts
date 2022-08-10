@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap } from 'rxjs';
 
-import { AuthApiActions, RegisterPageActions } from '../actions';
+import { AuthActions, AuthApiActions, RegisterPageActions } from '../actions';
 import { AuthService, TokenService } from '../services';
 
 @Injectable()
@@ -27,12 +27,14 @@ export class RegisterEffects {
   registerSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthApiActions.registerSuccess),
-      tap(({ tokens }) => {
+      switchMap(({ tokens }) => {
         this.tokenService.saveTokens(tokens);
         this.router.navigate(['home']);
+        return of(AuthActions.setUser({
+          user: this.tokenService.getUser(tokens.refresh_token),
+        }));
       })
-    ),
-    { dispatch: false }
+    )
   );
 
   constructor(

@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap } from 'rxjs';
 
 import { AuthActions, AuthApiActions } from '../actions';
 import { AuthService, TokenService } from '../services';
@@ -30,9 +30,13 @@ export class RefreshEffects {
   refreshSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthApiActions.refreshSuccess),
-      tap(({ tokens }) => this.tokenService.saveTokens(tokens))
-    ),
-    { dispatch: false }
+      switchMap(({ tokens }) => {
+        this.tokenService.saveTokens(tokens);
+        return of(AuthActions.setUser({
+          user: this.tokenService.getUser(tokens.refresh_token),
+        }));
+      })
+    )
   );
 
   constructor(

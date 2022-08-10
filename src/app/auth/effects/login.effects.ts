@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap } from 'rxjs';
 
 import { AuthActions, AuthApiActions, LoginPageActions } from '../actions';
-import { JwtPayload } from '../models';
 import { AuthService, TokenService } from '../services';
 
 @Injectable()
@@ -28,24 +27,22 @@ export class LoginEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthApiActions.loginSuccess),
-      tap(({ tokens }) => {
+      switchMap(({ tokens }) => {
         this.tokenService.saveTokens(tokens);
         this.router.navigate(['home']);
+        return of(AuthActions.setUser({
+          user: this.tokenService.getUser(tokens.refresh_token),
+        }));
       })
     ),
-    { dispatch: false }
   );
 
   getUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.getUser),
-      switchMap(() => {
-        const token = this.tokenService.getRefreshToken();
-        const user = token !== null
-          ? JSON.parse(window.atob(token.split('.')[1])) as JwtPayload
-          : null;
-        return of(AuthActions.setUser({ user }));
-      })
+      switchMap(() => of(AuthActions.setUser({
+        user: this.tokenService.getUser(),
+      })))
     )
   );
 
