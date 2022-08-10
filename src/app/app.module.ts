@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HttpClientModule } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './core/components/app/app.component';
-import { CoreModule } from './core/core.module';
 import { reducers } from './app.state';
+import { AuthModule } from './auth/auth.module';
+import { AppComponent } from './core/components';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   imports: [
@@ -21,6 +23,8 @@ import { reducers } from './app.state';
       logOnly: environment.production,
       autoPause: true,
     }),
+    HttpClientModule,
+    AuthModule,
     CoreModule,
   ],
   providers: [],

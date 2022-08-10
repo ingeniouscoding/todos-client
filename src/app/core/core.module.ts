@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './components/app/app.component';
+import { AppComponent, NotFoundPageComponent } from './components';
 import { CoreRoutingModule } from './core-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     CommonModule,
