@@ -34,6 +34,7 @@ export class RefreshEffects {
         this.tokenService.saveTokens(tokens);
         return of(AuthActions.setUser({
           user: this.tokenService.getUser(tokens.refresh_token),
+          tokens,
         }));
       })
     )

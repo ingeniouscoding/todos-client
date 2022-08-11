@@ -32,6 +32,7 @@ export class LoginEffects {
         this.router.navigate(['home']);
         return of(AuthActions.setUser({
           user: this.tokenService.getUser(tokens.refresh_token),
+          tokens,
         }));
       })
     ),
@@ -40,9 +41,18 @@ export class LoginEffects {
   getUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.getUser),
-      switchMap(() => of(AuthActions.setUser({
-        user: this.tokenService.getUser(),
-      })))
+      switchMap(() => {
+        const user = this.tokenService.getUser();
+        const access_token = this.tokenService.getAccessToken();
+        const refresh_token = this.tokenService.getRefreshToken();
+        const tokens = (access_token !== null && refresh_token !== null)
+          ? { access_token, refresh_token }
+          : null;
+        return of(AuthActions.setUser({
+          user,
+          tokens,
+        }));
+      })
     )
   );
 

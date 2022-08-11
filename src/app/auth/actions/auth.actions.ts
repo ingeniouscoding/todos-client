@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { JwtPayload } from '../models';
+import { JwtPayload, JwtTokens } from '../models';
 
 export const logout = createAction('[Auth] Logout');
 
@@ -12,5 +12,5 @@ export const getUser = createAction('[Auth] Get User From JWT');
 
 export const setUser = createAction(
   '[Auth] Set User From JWT',
-  props<{ user: JwtPayload | null; }>()
+  props<{ user: JwtPayload | null; tokens: JwtTokens | null; }>()
 );

@@ -32,6 +32,7 @@ export class RegisterEffects {
         this.router.navigate(['home']);
         return of(AuthActions.setUser({
           user: this.tokenService.getUser(tokens.refresh_token),
+          tokens,
         }));
       })
     )

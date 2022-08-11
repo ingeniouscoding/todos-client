@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginPageComponent, RegisterPageComponent } from './components';
 import { effects } from './effects';
+import { authorizationInterceptorProvider } from './interceptors';
 import * as fromAuth from './reducers';
 
 @NgModule({
@@ -20,6 +21,9 @@ import * as fromAuth from './reducers';
     ReactiveFormsModule,
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers),
     EffectsModule.forFeature(effects),
+  ],
+  providers: [
+    authorizationInterceptorProvider,
   ],
 })
 export class AuthModule { }
