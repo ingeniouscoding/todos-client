@@ -16,8 +16,8 @@ export class LoginEffects {
           .login(credentials)
           .pipe(
             map((tokens) => AuthApiActions.loginSuccess({ tokens })),
-            catchError((err) =>
-              of(AuthApiActions.loginFailure({ error: err.error }))
+            catchError(({ error }) =>
+              of(AuthApiActions.loginFailure({ error }))
             )
           )
       )

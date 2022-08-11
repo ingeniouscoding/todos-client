@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import { AuthActions, AuthApiActions } from '../actions';
 import { JwtPayload, JwtTokens } from '../models';
 
-export const statusFeatureKey = 'status';
+export const stateFeatureKey = 'state';
 
 export interface State {
   isAuthenticated: boolean;

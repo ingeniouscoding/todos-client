@@ -16,8 +16,8 @@ export class RegisterEffects {
           .register(credentials)
           .pipe(
             map((tokens) => AuthApiActions.registerSuccess({ tokens })),
-            catchError((err) =>
-              of(AuthApiActions.registerFailure({ error: err.error }))
+            catchError(({ error }) =>
+              of(AuthApiActions.registerFailure({ error }))
             )
           )
       )
