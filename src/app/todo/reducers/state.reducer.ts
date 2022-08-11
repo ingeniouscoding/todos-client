@@ -21,7 +21,7 @@ export const reducer = createReducer(
   })),
   on(TodoApiActions.createSuccess, (state, { todo }) => ({
     ...state,
-    todos: [todo, ...state.todos],
+    todos: [...state.todos, todo],
   })),
   on(TodoApiActions.updateSuccess, (state, { todo }) => ({
     ...state,
