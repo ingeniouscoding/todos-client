@@ -1,0 +1,5 @@
+<ol style="width: 400px;">
+  <li *ngFor="let todo of todos$ | async">
+    <h3>{{ todo.id }} - <a [routerLink]="['/todos', todo.id]">{{ todo.content }}</a></h3>
+    <button (click)="onDelete(todo.id)">x</button>
+  </li>
