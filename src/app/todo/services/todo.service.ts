@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CreateTodoDto, Todo } from '../models';
 
-const url = environment.url + 'todos';
+const url = environment.url + '/todos';
 
 @Injectable({
   providedIn: 'root'
