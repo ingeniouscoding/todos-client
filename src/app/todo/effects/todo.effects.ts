@@ -1,13 +1,22 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, concatMap, exhaustMap, map, mergeMap, of } from "rxjs";
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  map,
+  mergeMap,
+  of,
+  switchMap
+} from "rxjs";
 
 import { TodoActions, TodoApiActions } from "../actions";
 import { TodoService } from "../services";
 
 @Injectable()
 export class TodoEffects {
-  loadTodos$ = createEffect(() =>
+  getAll$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.getAll),
       exhaustMap(() => this.todoService
@@ -22,7 +31,22 @@ export class TodoEffects {
     )
   );
 
-  createTodo$ = createEffect(() =>
+  getById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoActions.getById),
+      switchMap(({ id }) => this.todoService
+        .getById(id)
+        .pipe(
+          map((todo) => TodoApiActions.getByIdSuccess({ todo })),
+          catchError(({ error }) =>
+            of(TodoApiActions.getByIdFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  create$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.create),
       concatMap(({ dto }) => this.todoService
@@ -37,7 +61,34 @@ export class TodoEffects {
     )
   );
 
-  deleteTodo$ = createEffect(() =>
+  update$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(
+        TodoActions.update,
+        TodoActions.complete
+      ),
+      mergeMap(({ dto, type }) => this.todoService
+        .update(dto)
+        .pipe(
+          map((todo) => {
+            if (type === TodoActions.complete.type) {
+              return TodoApiActions.completeSuccess({ todo });
+            }
+            this.router.navigate(['todos', todo.id]);
+            return TodoApiActions.updateSuccess({ todo });
+          }),
+          catchError(({ error }) => {
+            if (type === TodoActions.complete.type) {
+              return of(TodoApiActions.completeFailure({ id: dto.id, error }));
+            }
+            return of(TodoApiActions.updateFailure({ id: dto.id, error }));
+          })
+        )
+      )
+    )
+  );
+
+  remove$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.remove),
       mergeMap(({ id }) => this.todoService
@@ -45,7 +96,7 @@ export class TodoEffects {
         .pipe(
           map(() => TodoApiActions.removeSuccess({ id })),
           catchError(({ error }) =>
-            of(TodoApiActions.removeFailure({ error }))
+            of(TodoApiActions.removeFailure({ id, error }))
           )
         )
       )
@@ -54,6 +105,7 @@ export class TodoEffects {
 
   constructor(
     private actions$: Actions,
+    private router: Router,
     private todoService: TodoService
   ) { }
 }

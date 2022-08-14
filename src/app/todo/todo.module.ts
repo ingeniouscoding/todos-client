@@ -7,21 +7,27 @@ import { StoreModule } from '@ngrx/store';
 import { LayoutModule } from '@todos/layout/layout.module';
 import {
   CreatePageComponent,
+  EditPageComponent,
   ListPageComponent,
-  ShowTodoComponent,
-  TodoContainerComponent
+  ShowContainerComponent,
+  ShowPageComponent,
+  TodoContainerComponent,
 } from './components';
 import { TodoEffects } from './effects';
 import * as fromTodos from './reducers';
 import { TodoRoutingModule } from './todo-routing.module';
-
+import { TodoCardComponent, TodoViewComponent } from './ui';
 
 @NgModule({
   declarations: [
+    TodoContainerComponent,
+    ShowContainerComponent,
     ListPageComponent,
     CreatePageComponent,
-    TodoContainerComponent,
-    ShowTodoComponent,
+    ShowPageComponent,
+    TodoViewComponent,
+    TodoCardComponent,
+    EditPageComponent,
   ],
   imports: [
     CommonModule,

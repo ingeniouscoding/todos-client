@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {
   CreatePageComponent,
+  EditPageComponent,
   ListPageComponent,
-  ShowTodoComponent,
+  ShowContainerComponent,
+  ShowPageComponent,
   TodoContainerComponent
 } from './components';
 
@@ -25,8 +27,19 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        component: ShowTodoComponent,
-        title: 'Todos | Show',
+        component: ShowContainerComponent,
+        children: [
+          {
+            path: '',
+            component: ShowPageComponent,
+            title: 'Todos | Show',
+          },
+          {
+            path: 'edit',
+            component: EditPageComponent,
+            title: 'Todos | Show',
+          },
+        ],
       },
     ],
   },

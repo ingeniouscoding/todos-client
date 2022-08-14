@@ -1,7 +1,11 @@
-export interface Todo {
+export interface TodoDto {
   id: string;
   content: string;
   isComplete: boolean;
+}
+
+export interface Todo extends TodoDto {
+  isPending?: boolean;
 }
 
 export interface CreateTodoDto {
@@ -9,6 +13,7 @@ export interface CreateTodoDto {
 }
 
 export interface UpdateTodoDto {
+  id: string;
   content?: string;
-  isComplete?: string;
+  isComplete?: boolean;
 }

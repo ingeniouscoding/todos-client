@@ -12,6 +12,16 @@ export const getAllFailure = createAction(
   props<{ error: any; }>()
 );
 
+export const getByIdSuccess = createAction(
+  '[Todo/API] Get Todo By ID Success',
+  props<{ todo: Todo; }>()
+);
+
+export const getByIdFailure = createAction(
+  '[Todo/API] Get Todo By ID Failure',
+  props<{ error: any; }>()
+);
+
 export const createSuccess = createAction(
   '[Todo/API] Create Todo Success',
   props<{ todo: Todo; }>()
@@ -29,7 +39,17 @@ export const updateSuccess = createAction(
 
 export const updateFailure = createAction(
   '[Todo/API] Update Todo Failure',
-  props<{ error: any; }>()
+  props<{ id: string, error: any; }>()
+);
+
+export const completeSuccess = createAction(
+  '[Todo/API] Complete Todo Success',
+  props<{ todo: Todo; }>()
+);
+
+export const completeFailure = createAction(
+  '[Todo/API] Complete Todo Failure',
+  props<{ id: string, error: any; }>()
 );
 
 export const removeSuccess = createAction(
@@ -39,5 +59,5 @@ export const removeSuccess = createAction(
 
 export const removeFailure = createAction(
   '[Todo/API] Remove Todo Failure',
-  props<{ error: any; }>()
+  props<{ id: string; error: any; }>()
 );

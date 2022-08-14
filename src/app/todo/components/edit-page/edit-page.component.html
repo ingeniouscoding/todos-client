@@ -1,0 +1,9 @@
+<ng-container *ngIf="todo$ | async as todo">
+  <form [formGroup]="fg" (ngSubmit)="onUpdate()">
+    <label for="content">Content</label>
+    <input type="text" formControlName="content">
+    <label for="is-complete">Complete</label>
+    <input type="checkbox" id="is-complete" formControlName="isComplete">
+    <input type="submit" value="Save changes" [disabled]="todo.isPending">
+  </form>
+</ng-container>

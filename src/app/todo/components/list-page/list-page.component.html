@@ -1,5 +1,25 @@
-<ol style="width: 400px;">
-  <li *ngFor="let todo of todos$ | async">
-    <h3>{{ todo.id }} - <a [routerLink]="['/todos', todo.id]">{{ todo.content }}</a></h3>
-    <button (click)="onDelete(todo.id)">x</button>
-  </li>
+<ng-container *ngIf="vm$ | async as vm">
+
+  <div *ngIf="vm.page.isPending">
+    <h2>Is loading...</h2>
+  </div>
+
+  <div *ngIf="vm.page.error">
+    <h2>Error</h2>
+  </div>
+
+  <ol style="width: 400px;">
+    <div *ngIf="!vm.page.error && vm.todos as todos">
+      <div *ngIf="todos.length > 0 else emptyList">
+        <li *ngFor="let todo of todos">
+          <app-todo-card [todo]="todo" (check)="onCheck($event)" (remove)="onRemove($event)"></app-todo-card>
+        </li>
+      </div>
+    </div>
+  </ol>
+
+</ng-container>
+
+<ng-template #emptyList>
+  <h2>No todos</h2>
+</ng-template>

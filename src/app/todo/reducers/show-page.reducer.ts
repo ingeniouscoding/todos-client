@@ -2,7 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 
 import { TodoActions, TodoApiActions } from "../actions";
 
-export const listPageFeatureKey = 'listPage';
+export const showPageFeatureKey = 'showPage';
 
 export interface State {
   isPending: boolean;
@@ -16,20 +16,20 @@ const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(TodoActions.getAll, (state) => ({
+  on(TodoActions.getById, (state) => ({
     ...state,
     isPending: true,
     error: null,
   })),
-  on(TodoApiActions.getAllSuccess, () => initialState),
-  on(TodoApiActions.getAllFailure, (state, { error }) => ({
+  on(TodoApiActions.getByIdSuccess, () => initialState),
+  on(TodoApiActions.getByIdFailure, (state, { error }) => ({
     ...state,
     isPending: false,
     error,
   })),
   on(
     TodoApiActions.removeFailure,
-    TodoApiActions.completeFailure,
+    TodoApiActions.updateFailure,
     (state, { error }) => ({
       ...state,
       error,

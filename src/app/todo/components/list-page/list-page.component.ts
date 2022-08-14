@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { combineLatest, map } from 'rxjs';
 
 import { TodoActions } from '../../actions';
+import { UpdateTodoDto } from '../../models';
 import * as fromTodos from '../../reducers';
 
 @Component({
@@ -10,7 +12,13 @@ import * as fromTodos from '../../reducers';
   styleUrls: ['./list-page.component.scss'],
 })
 export class ListPageComponent implements OnInit {
-  public todos$ = this.store.select(fromTodos.selectTodos);
+  private todos$ = this.store.select(fromTodos.selectAllTodos);
+  private page$ = this.store.select(fromTodos.selectListPage);
+
+  public vm$ = combineLatest([this.todos$, this.page$])
+    .pipe(
+      map(([todos, page]) => ({ todos, page }))
+    );
 
   constructor(private store: Store) { }
 
@@ -18,7 +26,11 @@ export class ListPageComponent implements OnInit {
     this.store.dispatch(TodoActions.getAll());
   }
 
-  onDelete(id: string) {
+  onCheck(dto: UpdateTodoDto) {
+    this.store.dispatch(TodoActions.complete({ dto }));
+  }
+
+  onRemove(id: string) {
     this.store.dispatch(TodoActions.remove({ id }));
   }
 }

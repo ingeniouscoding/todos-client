@@ -1,0 +1,8 @@
+<h3>{{ todo.id }}</h3>
+<a [routerLink]="['/todos', todo.id]">
+  <h1>{{ todo.content }}</h1>
+</a>
+<button (click)="onCheck()">check</button>
+<input type="checkbox" [checked]="todo.isComplete" disabled>
+<button (click)="onRemove()">delete</button>
+<h2 *ngIf="todo.isPending">Updating...</h2>

@@ -1,0 +1,16 @@
+<ng-container *ngIf="vm$ | async as vm">
+
+  <div *ngIf="vm.page.isPending">
+    <h2>Is loading...</h2>
+  </div>
+
+  <div *ngIf="vm.page.error as error">
+    <h3>Error</h3>
+    <h2 *ngIf="error.statusCode === 404">Not found</h2>
+  </div>
+
+  <div *ngIf="vm.todo as todo">
+    <router-outlet></router-outlet>
+  </div>
+
+</ng-container>
