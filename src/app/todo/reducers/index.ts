@@ -5,10 +5,10 @@ import {
   createSelector
 } from '@ngrx/store';
 
-import * as fromRoot from '@todos/app.state';
+import * as fromRoot from 'src/app/app.state';
 import * as fromList from './list-page.reducer';
-import * as fromState from './state.reducer';
 import * as fromShow from './show-page.reducer';
+import * as fromState from './state.reducer';
 
 export const todosFeatureKey = 'todos';
 

@@ -5,7 +5,7 @@ import {
   createSelector
 } from '@ngrx/store';
 
-import * as fromRoot from '@todos/app.state';
+import * as fromRoot from 'src/app/app.state';
 import * as fromLoginPage from './login-page.reducer';
 import * as fromRegisterPage from './register-page.reducer';
 import * as fromState from './state.reducer';

@@ -4,14 +4,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { LayoutModule } from '@todos/layout/layout.module';
+import { LayoutModule } from 'src/app/layout/layout.module';
 import {
   CreatePageComponent,
   EditPageComponent,
   ListPageComponent,
   ShowContainerComponent,
   ShowPageComponent,
-  TodoContainerComponent,
+  TodoContainerComponent
 } from './components';
 import { TodoEffects } from './effects';
 import * as fromTodos from './reducers';
