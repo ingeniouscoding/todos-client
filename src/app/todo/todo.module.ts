@@ -16,7 +16,11 @@ import {
 import { TodoEffects } from './effects';
 import * as fromTodos from './reducers';
 import { TodoRoutingModule } from './todo-routing.module';
-import { TodoCardComponent, TodoViewComponent } from './ui';
+import {
+  TodoCardComponent,
+  TodoItemActionsComponent,
+  TodoViewComponent
+} from './ui';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,7 @@ import { TodoCardComponent, TodoViewComponent } from './ui';
     TodoCardComponent,
     EditPageComponent,
     CreateTodoComponent,
+    TodoItemActionsComponent,
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,7 @@ export interface TodoDto {
 
 export interface Todo extends TodoDto {
   isPending?: boolean;
-  error?: string;
+  errorMessage: string | null;
 }
 
 export interface CreateTodoDto {
@@ -17,5 +17,4 @@ export interface CreateTodoDto {
 export interface UpdateTodoDto {
   guid: string;
   content?: string;
-  isComplete?: boolean;
 }

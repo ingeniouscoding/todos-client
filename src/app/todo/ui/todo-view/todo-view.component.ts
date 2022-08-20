@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Todo, UpdateTodoDto } from '../../models';
+import { Todo } from '../../models';
 
 @Component({
   selector: 'app-todo-view',
@@ -9,12 +9,19 @@ import { Todo, UpdateTodoDto } from '../../models';
 })
 export class TodoViewComponent {
   @Input() todo!: Todo;
-  @Output() check = new EventEmitter<UpdateTodoDto>();
+  @Output() complete = new EventEmitter<string>();
+  @Output() uncomplete = new EventEmitter<string>();
+  @Output() remove = new EventEmitter<string>();
 
-  onCheck() {
-    this.check.emit({
-      guid: this.todo.guid,
-      isComplete: !this.todo.isComplete,
-    });
+  onComplete() {
+    this.complete.emit(this.todo.guid);
+  }
+
+  onUncomplete() {
+    this.uncomplete.emit(this.todo.guid);
+  }
+
+  onRemove() {
+    this.remove.emit(this.todo.guid);
   }
 }

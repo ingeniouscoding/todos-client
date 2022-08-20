@@ -15,7 +15,6 @@ export class EditPageComponent {
   public fg = this.fb.group({
     guid: '',
     content: '',
-    isComplete: false,
   });
 
   public todo$ = this.store.select(fromTodos.selectCurrentTodo)
@@ -24,7 +23,6 @@ export class EditPageComponent {
         if (todo !== null && !todo.isPending) {
           this.fg.controls.guid.setValue(todo.guid);
           this.fg.controls.content.setValue(todo.content);
-          this.fg.controls.isComplete.setValue(todo.isComplete);
         }
       })
     );

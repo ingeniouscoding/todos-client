@@ -1,3 +1,6 @@
 <div *ngIf="todo$ | async as todo">
-  <app-todo-view [todo]="todo" (check)="onCheck($event)"></app-todo-view>
+  <app-todo-view [todo]="todo"
+    (complete)="onComplete($event)"
+    (uncomplete)="onUncomplete($event)"
+    (remove)="onRemove($event)"></app-todo-view>
 </div>

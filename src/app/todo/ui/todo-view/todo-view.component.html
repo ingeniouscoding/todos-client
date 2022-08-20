@@ -1,6 +1,12 @@
 <h3>{{ todo.guid }}</h3>
 <h1>{{ todo.content }}</h1>
-<button (click)="onCheck()">check</button>
 <input type="checkbox" [checked]="todo.isComplete" disabled>
 <a [routerLink]="['/todos', todo.guid, 'edit']">Edit</a>
+
+<app-todo-item-actions [isComplete]="todo.isComplete"
+  (complete)="onComplete()"
+  (uncomplete)="onUncomplete()"
+  (remove)="onRemove()"></app-todo-item-actions>
+
 <h2 *ngIf="todo.isPending">Updating...</h2>
+<h2 *ngIf="todo.errorMessage">{{ todo.errorMessage }}</h2>

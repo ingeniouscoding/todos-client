@@ -15,7 +15,15 @@ export class ShowPageComponent {
 
   constructor(private store: Store) { }
 
-  onCheck(dto: UpdateTodoDto) {
-    this.store.dispatch(TodoActions.update({ dto }));
+  onComplete(guid: string) {
+    this.store.dispatch(TodoActions.complete({ guid }));
+  }
+
+  onUncomplete(guid: string) {
+    this.store.dispatch(TodoActions.uncomplete({ guid }));
+  }
+
+  onRemove(guid: string) {
+    this.store.dispatch(TodoActions.remove({ guid }));
   }
 }

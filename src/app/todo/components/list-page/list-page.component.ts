@@ -26,8 +26,12 @@ export class ListPageComponent implements OnInit {
     this.store.dispatch(TodoActions.getAll());
   }
 
-  onCheck(dto: UpdateTodoDto) {
-    this.store.dispatch(TodoActions.complete({ dto }));
+  onComplete(guid: string) {
+    this.store.dispatch(TodoActions.complete({ guid }));
+  }
+
+  onUncomplete(guid: string) {
+    this.store.dispatch(TodoActions.uncomplete({ guid }));
   }
 
   onRemove(guid: string) {

@@ -1,22 +1,24 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Todo, UpdateTodoDto } from '../../models';
+import { Todo } from '../../models';
 
 @Component({
   selector: 'app-todo-card',
   templateUrl: './todo-card.component.html',
-  styleUrls: ['./todo-card.component.scss']
+  styleUrls: ['./todo-card.component.scss'],
 })
 export class TodoCardComponent {
   @Input() todo!: Todo;
-  @Output() check = new EventEmitter<UpdateTodoDto>();
+  @Output() complete = new EventEmitter<string>();
+  @Output() uncomplete = new EventEmitter<string>();
   @Output() remove = new EventEmitter<string>();
 
-  onCheck() {
-    this.check.emit({
-      guid: this.todo.guid,
-      isComplete: !this.todo.isComplete,
-    });
+  onComplete() {
+    this.complete.emit(this.todo.guid);
+  }
+
+  onUncomplete() {
+    this.uncomplete.emit(this.todo.guid);
   }
 
   onRemove() {

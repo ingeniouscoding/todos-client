@@ -28,7 +28,15 @@ export class TodoService {
   update(dto: UpdateTodoDto) {
     const { guid, ...todo } = dto;
     return this.http.patch<TodoDto>(`${url}/${guid}`, todo);
-  };
+  }
+
+  complete(gui: string): Observable<void> {
+    return this.http.post<void>(`${url}/${gui}/complete`, {});
+  }
+
+  uncomplete(guid: string): Observable<void> {
+    return this.http.post<void>(`${url}/${guid}/uncomplete`, {});
+  }
 
   remove(guid: string): Observable<void> {
     return this.http.delete<void>(`${url}/${guid}`);

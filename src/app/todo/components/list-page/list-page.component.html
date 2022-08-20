@@ -14,7 +14,10 @@
     <div *ngIf="!vm.page.error && vm.todos as todos">
       <div *ngIf="todos.length > 0 else emptyList">
         <li *ngFor="let todo of todos">
-          <app-todo-card [todo]="todo" (check)="onCheck($event)" (remove)="onRemove($event)"></app-todo-card>
+          <app-todo-card [todo]="todo"
+            (complete)="onComplete($event)"
+            (uncomplete)="onUncomplete($event)"
+            (remove)="onRemove($event)"></app-todo-card>
         </li>
       </div>
     </div>

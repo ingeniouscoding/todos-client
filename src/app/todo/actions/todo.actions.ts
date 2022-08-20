@@ -21,7 +21,12 @@ export const update = createAction(
 
 export const complete = createAction(
   '[Todos] Complete Todo',
-  props<{ dto: UpdateTodoDto; }>()
+  props<{ guid: string; }>()
+);
+
+export const uncomplete = createAction(
+  '[Todos] Uncomplete Todo',
+  props<{ guid: string; }>()
 );
 
 export const remove = createAction(

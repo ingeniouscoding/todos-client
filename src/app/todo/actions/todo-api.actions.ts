@@ -44,11 +44,21 @@ export const updateFailure = createAction(
 
 export const completeSuccess = createAction(
   '[Todo/API] Complete Todo Success',
-  props<{ todo: Todo; }>()
+  props<{ guid: string; }>()
 );
 
 export const completeFailure = createAction(
   '[Todo/API] Complete Todo Failure',
+  props<{ guid: string, error: any; }>()
+);
+
+export const uncompleteSuccess = createAction(
+  '[Todo/API] Uncomplete Todo Success',
+  props<{ guid: string; }>()
+);
+
+export const uncompleteFailure = createAction(
+  '[Todo/API] Uncomplete Todo Failure',
   props<{ guid: string, error: any; }>()
 );
 
