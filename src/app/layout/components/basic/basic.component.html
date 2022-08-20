@@ -2,7 +2,6 @@
   <ul>
     <li><a [routerLink]="['/home']">Home</a></li>
     <li><a [routerLink]="['/todos']">Todos</a></li>
-    <li><a [routerLink]="['/todos/create']">Create Todos</a></li>
     <li *ngIf="isAuth$ | async else guest"><button (click)="onLogout()">Logout</button></li>
   </ul>
 </header>
@@ -10,5 +9,6 @@
 <ng-content></ng-content>
 
 <ng-template #guest>
+  <li><a [routerLink]="['/register']">Register</a></li>
   <li><a [routerLink]="['/login']">Login</a></li>
 </ng-template>

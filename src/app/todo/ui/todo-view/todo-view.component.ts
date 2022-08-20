@@ -13,7 +13,7 @@ export class TodoViewComponent {
 
   onCheck() {
     this.check.emit({
-      id: this.todo.id,
+      guid: this.todo.guid,
       isComplete: !this.todo.isComplete,
     });
   }

@@ -1,19 +1,21 @@
 export interface TodoDto {
-  id: string;
+  guid: string;
   content: string;
   isComplete: boolean;
 }
 
 export interface Todo extends TodoDto {
   isPending?: boolean;
+  error?: string;
 }
 
 export interface CreateTodoDto {
+  guid: string;
   content: string;
 }
 
 export interface UpdateTodoDto {
-  id: string;
+  guid: string;
   content?: string;
   isComplete?: boolean;
 }

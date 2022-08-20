@@ -17,9 +17,9 @@ const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(TodoActions.getById, (state, { id }) => ({
+  on(TodoActions.getById, (state, { guid }) => ({
     ...state,
-    current: state.current?.id === id ? state.current : null,
+    current: state.current?.guid === guid ? state.current : null,
   })),
   on(TodoApiActions.getByIdSuccess, (state, { todo }) => ({
     ...state,
@@ -29,51 +29,72 @@ export const reducer = createReducer(
     ...state,
     todos,
   })),
-  on(TodoApiActions.createSuccess, (state, { todo }) => ({
+  on(TodoActions.create, (state, { dto }) => ({
     ...state,
-    todos: (state.todos ?? []).concat(todo),
+    todos: (state.todos ?? []).concat({
+      guid: dto.guid,
+      content: dto.content,
+      isComplete: false,
+      isPending: true,
+    }),
+  })),
+  on(TodoApiActions.createSuccess, (state, { guid }) => ({
+    ...state,
+    todos: state.todos!.map((t) => t.guid === guid
+      ? { ...t, isPending: false }
+      : t
+    ),
+  })),
+  on(TodoApiActions.createFailure, (state, { guid }) => ({
+    ...state,
+    todos: state.todos!.map((t) => t.guid === guid
+      ? { ...t, isPending: false, error: 'Not saved' }
+      : t
+    ),
   })),
   on(
     TodoActions.update,
     TodoActions.complete,
     (state, { dto }) => ({
       ...state,
-      current: state.current?.id === dto.id
+      current: state.current?.guid === dto.guid
         ? { ...state.current, isPending: true }
         : state.current,
-      todos: state.todos?.map((t) => t.id === dto.id
+      todos: state.todos?.map((t) => t.guid === dto.guid
         ? { ...t, isPending: true }
         : t
       ) ?? null,
-    })),
+    })
+  ),
   on(
     TodoApiActions.updateSuccess,
     TodoApiActions.completeSuccess,
     (state, { todo }) => ({
       ...state,
-      current: state.current?.id === todo.id ? todo : state.current,
-      todos: state.todos?.map((t) => t.id === todo.id
+      current: state.current?.guid === todo.guid ? todo : state.current,
+      todos: state.todos!.map((t) => t.guid === todo.guid
         ? todo
         : t
-      ) ?? null,
-    })),
+      ),
+    })
+  ),
   on(
     TodoApiActions.completeFailure,
     TodoApiActions.updateFailure,
     TodoApiActions.removeFailure,
-    (state, { id }) => ({
+    (state, { guid }) => ({
       ...state,
-      current: state.current?.id === id
+      current: state.current?.guid === guid
         ? { ...state.current, isPending: false }
         : state.current,
-      todos: state.todos?.map((t) => t.id === id
+      todos: state.todos!.map((t) => t.guid === guid
         ? { ...t, isPending: false }
         : t
-      ) ?? null,
+      ),
     })
   ),
-  on(TodoApiActions.removeSuccess, (state, { id }) => ({
+  on(TodoApiActions.removeSuccess, (state, { guid }) => ({
     ...state,
-    todos: state.todos?.filter((t) => t.id !== id) ?? null,
+    todos: state.todos!.filter((t) => t.guid !== guid),
   }))
 );

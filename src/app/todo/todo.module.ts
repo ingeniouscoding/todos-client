@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { LayoutModule } from 'src/app/layout/layout.module';
 import {
-  CreatePageComponent,
+  CreateTodoComponent,
   EditPageComponent,
   ListPageComponent,
   ShowContainerComponent,
@@ -23,11 +23,12 @@ import { TodoCardComponent, TodoViewComponent } from './ui';
     TodoContainerComponent,
     ShowContainerComponent,
     ListPageComponent,
-    CreatePageComponent,
+    CreateTodoComponent,
     ShowPageComponent,
     TodoViewComponent,
     TodoCardComponent,
     EditPageComponent,
+    CreateTodoComponent,
   ],
   imports: [
     CommonModule,

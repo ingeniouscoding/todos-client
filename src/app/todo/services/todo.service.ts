@@ -17,8 +17,8 @@ export class TodoService {
     return this.http.get<TodoDto[]>(url);
   }
 
-  getById(id: string) {
-    return this.http.get<TodoDto>(`${url}/${id}`);
+  getById(guid: string) {
+    return this.http.get<TodoDto>(`${url}/${guid}`);
   }
 
   create(dto: CreateTodoDto): Observable<TodoDto> {
@@ -26,11 +26,11 @@ export class TodoService {
   }
 
   update(dto: UpdateTodoDto) {
-    const { id, ...todo } = dto;
-    return this.http.patch<TodoDto>(`${url}/${id}`, todo);
+    const { guid, ...todo } = dto;
+    return this.http.patch<TodoDto>(`${url}/${guid}`, todo);
   };
 
-  remove(id: string): Observable<void> {
-    return this.http.delete<void>(`${url}/${id}`);
+  remove(guid: string): Observable<void> {
+    return this.http.delete<void>(`${url}/${guid}`);
   }
 }

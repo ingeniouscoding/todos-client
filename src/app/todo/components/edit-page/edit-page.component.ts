@@ -7,13 +7,13 @@ import { TodoActions } from '../../actions';
 import * as fromTodos from '../../reducers';
 
 @Component({
-  selector: 'app-edit-page',
+  selector: 'app-todo-edit-page',
   templateUrl: './edit-page.component.html',
   styleUrls: ['./edit-page.component.scss'],
 })
 export class EditPageComponent {
   public fg = this.fb.group({
-    id: '',
+    guid: '',
     content: '',
     isComplete: false,
   });
@@ -22,7 +22,7 @@ export class EditPageComponent {
     .pipe(
       tap((todo) => {
         if (todo !== null && !todo.isPending) {
-          this.fg.controls.id.setValue(todo.id);
+          this.fg.controls.guid.setValue(todo.guid);
           this.fg.controls.content.setValue(todo.content);
           this.fg.controls.isComplete.setValue(todo.isComplete);
         }

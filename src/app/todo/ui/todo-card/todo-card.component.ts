@@ -14,12 +14,12 @@ export class TodoCardComponent {
 
   onCheck() {
     this.check.emit({
-      id: this.todo.id,
+      guid: this.todo.guid,
       isComplete: !this.todo.isComplete,
     });
   }
 
   onRemove() {
-    this.remove.emit(this.todo.id);
+    this.remove.emit(this.todo.guid);
   }
 }

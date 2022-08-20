@@ -7,7 +7,7 @@ import { TodoActions } from '../../actions';
 import * as fromTodos from '../../reducers';
 
 @Component({
-  selector: 'app-show-container',
+  selector: 'app-todo-show-container',
   templateUrl: './show-container.component.html',
   styleUrls: ['./show-container.component.scss'],
 })
@@ -20,14 +20,14 @@ export class ShowContainerComponent implements OnInit {
       map(([todo, page]) => ({ todo, page }))
     );
 
-  private id: string;
+  private guid: string;
 
   constructor(private store: Store, route: ActivatedRoute) {
-    this.id = route.snapshot.params['id'];
+    this.guid = route.snapshot.params['guid'];
   }
 
   ngOnInit(): void {
-    this.store.dispatch(TodoActions.getById({ id: this.id }));
+    this.store.dispatch(TodoActions.getById({ guid: this.guid }));
   }
 
 }

@@ -34,8 +34,8 @@ export class TodoEffects {
   getById$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.getById),
-      switchMap(({ id }) => this.todoService
-        .getById(id)
+      switchMap(({ guid }) => this.todoService
+        .getById(guid)
         .pipe(
           map((todo) => TodoApiActions.getByIdSuccess({ todo })),
           catchError(({ error }) =>
@@ -52,9 +52,9 @@ export class TodoEffects {
       concatMap(({ dto }) => this.todoService
         .create(dto)
         .pipe(
-          map((todo) => TodoApiActions.createSuccess({ todo })),
+          map(() => TodoApiActions.createSuccess({ guid: dto.guid })),
           catchError(({ error }) =>
-            of(TodoApiActions.createFailure({ error }))
+            of(TodoApiActions.createFailure({ guid: dto.guid, error }))
           )
         )
       )
@@ -74,14 +74,17 @@ export class TodoEffects {
             if (type === TodoActions.complete.type) {
               return TodoApiActions.completeSuccess({ todo });
             }
-            this.router.navigate(['todos', todo.id]);
+            this.router.navigate(['todos', todo.guid]);
             return TodoApiActions.updateSuccess({ todo });
           }),
           catchError(({ error }) => {
             if (type === TodoActions.complete.type) {
-              return of(TodoApiActions.completeFailure({ id: dto.id, error }));
+              return of(TodoApiActions.completeFailure({
+                guid: dto.guid,
+                error,
+              }));
             }
-            return of(TodoApiActions.updateFailure({ id: dto.id, error }));
+            return of(TodoApiActions.updateFailure({ guid: dto.guid, error }));
           })
         )
       )
@@ -91,12 +94,12 @@ export class TodoEffects {
   remove$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.remove),
-      mergeMap(({ id }) => this.todoService
-        .remove(id)
+      mergeMap(({ guid }) => this.todoService
+        .remove(guid)
         .pipe(
-          map(() => TodoApiActions.removeSuccess({ id })),
+          map(() => TodoApiActions.removeSuccess({ guid })),
           catchError(({ error }) =>
-            of(TodoApiActions.removeFailure({ id, error }))
+            of(TodoApiActions.removeFailure({ guid, error }))
           )
         )
       )

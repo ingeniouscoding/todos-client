@@ -30,7 +30,7 @@ export class ListPageComponent implements OnInit {
     this.store.dispatch(TodoActions.complete({ dto }));
   }
 
-  onRemove(id: string) {
-    this.store.dispatch(TodoActions.remove({ id }));
+  onRemove(guid: string) {
+    this.store.dispatch(TodoActions.remove({ guid }));
   }
 }

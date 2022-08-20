@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { v4 as uuidv4 } from 'uuid';
 
 import { TodoActions } from '../../actions';
 
 @Component({
-  selector: 'app-todo-create-page',
-  templateUrl: './create-page.component.html',
-  styleUrls: ['./create-page.component.scss'],
+  selector: 'app-todo-create-todo',
+  templateUrl: './create-todo.component.html',
+  styleUrls: ['./create-todo.component.scss'],
 })
-export class CreatePageComponent {
+export class CreateTodoComponent {
   public fg = this.fb.group({
     content: '',
   });
@@ -20,9 +21,12 @@ export class CreatePageComponent {
   ) { }
 
   onSave(): void {
-    const dto = this.fg.getRawValue();
-    if (dto.content) {
+    const form = this.fg.getRawValue();
+    if (form.content) {
+      const guid = uuidv4();
+      const dto = { ...form, guid };
       this.store.dispatch(TodoActions.create({ dto }));
+      this.fg.reset();
     }
   }
 }
