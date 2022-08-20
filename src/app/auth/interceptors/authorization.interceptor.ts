@@ -22,6 +22,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler)
     : Observable<HttpEvent<unknown>> {
+    const isRefreshUrl = request.url.endsWith('/auth/token');
 
     return this.tokens$.pipe(
       take(1),
@@ -38,6 +39,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
             token !== null
             && err instanceof HttpErrorResponse
             && err.status === 401
+            && !isRefreshUrl
           ) {
             return this.handle401Error(request, next, err);
           }
@@ -48,6 +50,30 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     );
   }
 
+  private handle401Error(
+    request: HttpRequest<unknown>,
+    next: HttpHandler,
+    err: HttpErrorResponse
+  ): Observable<HttpEvent<unknown>> {
+    this.store.dispatch(AuthActions.refresh());
+
+    return this.actions$.pipe(
+      ofType(
+        AuthApiActions.refreshSuccess,
+        AuthApiActions.refreshFailure
+      ),
+      take(1),
+      switchMap((action) => {
+        if (action.type === AuthApiActions.refreshSuccess.type) {
+          const accessToken = action.tokens.access_token;
+          request = this.setAuthHeader(request, accessToken);
+          return next.handle(request);
+        }
+        return throwError(() => err);
+      })
+    );
+  }
+
   private setAuthHeader(request: HttpRequest<unknown>, accessToken: string)
     : HttpRequest<unknown> {
     return request.clone({
@@ -55,37 +81,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-  }
-
-  private handle401Error(
-    request: HttpRequest<unknown>,
-    next: HttpHandler,
-    err: HttpErrorResponse
-  ): Observable<HttpEvent<unknown>> {
-    this.store.dispatch(AuthActions.refresh());
-    return this.actions$.pipe(
-      ofType(
-        AuthActions.setUser,
-        AuthActions.forceLogout,
-        AuthApiActions.refreshFailure
-      ),
-      take(1),
-      switchMap((action) => {
-        if (action.type === AuthActions.setUser.type) {
-          return this.tokens$
-            .pipe(
-              take(1),
-              switchMap((tokens) => {
-                if (tokens !== null) {
-                  request = this.setAuthHeader(request, tokens.access_token);
-                }
-                return next.handle(request);
-              })
-            );
-        }
-        return throwError(() => err);
-      })
-    );
   }
 }
 

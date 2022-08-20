@@ -17,7 +17,7 @@ export class RefreshEffects {
           .pipe(
             map((tokens) => AuthApiActions.refreshSuccess({ tokens })),
             catchError((err) => {
-              if (err instanceof HttpErrorResponse && err.status === 403) {
+              if (err instanceof HttpErrorResponse && err.status === 401) {
                 return of(AuthActions.forceLogout());
               }
               return of(AuthApiActions.refreshFailure({ error: err.error }));
