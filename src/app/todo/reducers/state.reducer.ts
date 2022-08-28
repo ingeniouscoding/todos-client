@@ -17,9 +17,9 @@ const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(TodoActions.getById, (state, { guid }) => ({
+  on(TodoActions.getById, (state, { id }) => ({
     ...state,
-    current: state.current?.guid === guid ? state.current : null,
+    current: state.current?.id === id ? state.current : null,
   })),
   on(TodoApiActions.getByIdSuccess, (state, { todo }) => ({
     ...state,
@@ -33,7 +33,7 @@ export const reducer = createReducer(
     ...state,
     todos: [
       {
-        guid: dto.guid,
+        id: dto.id,
         content: dto.content,
         isComplete: false,
         isPending: true,
@@ -42,23 +42,23 @@ export const reducer = createReducer(
       ...state.todos ?? [],
     ],
   })),
-  on(TodoApiActions.createSuccess, (state, { guid }) => ({
+  on(TodoApiActions.createSuccess, (state, { id }) => ({
     ...state,
-    todos: state.todos!.map((t) => t.guid === guid
+    todos: state.todos!.map((t) => t.id === id
       ? { ...t, isPending: false, errorMessage: null }
       : t
     ),
   })),
-  on(TodoApiActions.createFailure, (state, { guid }) => ({
+  on(TodoApiActions.createFailure, (state, { id }) => ({
     ...state,
-    todos: state.todos!.map((t) => t.guid === guid
+    todos: state.todos!.map((t) => t.id === id
       ? { ...t, isPending: false, errorMessage: 'Not saved' }
       : t
     ),
   })),
-  on(TodoActions.complete, (state, { guid }) => ({
+  on(TodoActions.complete, (state, { id }) => ({
     ...state,
-    current: state.current?.guid === guid
+    current: state.current?.id === id
       ? {
         ...state.current,
         isComplete: true,
@@ -66,14 +66,14 @@ export const reducer = createReducer(
         errorMessage: null,
       }
       : state.current,
-    todos: state.todos?.map((t) => t.guid === guid
+    todos: state.todos?.map((t) => t.id === id
       ? { ...t, isComplete: true, isPending: true, errorMessage: null }
       : t
     ) ?? null,
   })),
-  on(TodoActions.uncomplete, (state, { guid }) => ({
+  on(TodoActions.uncomplete, (state, { id }) => ({
     ...state,
-    current: state.current?.guid === guid
+    current: state.current?.id === id
       ? {
         ...state.current,
         isComplete: false,
@@ -81,7 +81,7 @@ export const reducer = createReducer(
         errorMessage: null,
       }
       : state.current,
-    todos: state.todos?.map((t) => t.guid === guid
+    todos: state.todos?.map((t) => t.id === id
       ? { ...t, isComplete: false, isPending: true, errorMessage: null }
       : t
     ) ?? null,
@@ -89,20 +89,20 @@ export const reducer = createReducer(
   on(
     TodoApiActions.completeSuccess,
     TodoApiActions.uncompleteSuccess,
-    (state, { guid }) => ({
+    (state, { id }) => ({
       ...state,
-      current: state.current?.guid === guid
+      current: state.current?.id === id
         ? { ...state.current, isPending: false, errorMessage: null }
         : state.current,
-      todos: state.todos!.map((t) => t.guid === guid
+      todos: state.todos!.map((t) => t.id === id
         ? { ...t, isPending: false, errorMessage: null }
         : t
       ),
     })
   ),
-  on(TodoApiActions.uncompleteFailure, (state, { guid }) => ({
+  on(TodoApiActions.uncompleteFailure, (state, { id }) => ({
     ...state,
-    current: state.current?.guid === guid
+    current: state.current?.id === id
       ? {
         ...state.current,
         isPending: false,
@@ -110,7 +110,7 @@ export const reducer = createReducer(
         errorMessage: 'Not complete',
       }
       : state.current,
-    todos: state.todos!.map((t) => t.guid === guid
+    todos: state.todos!.map((t) => t.id === id
       ? {
         ...t,
         isPending: false,
@@ -120,9 +120,9 @@ export const reducer = createReducer(
       : t
     ),
   })),
-  on(TodoApiActions.uncompleteFailure, (state, { guid }) => ({
+  on(TodoApiActions.uncompleteFailure, (state, { id }) => ({
     ...state,
-    current: state.current?.guid === guid
+    current: state.current?.id === id
       ? {
         ...state.current,
         isPending: false,
@@ -130,7 +130,7 @@ export const reducer = createReducer(
         errorMessage: 'Not uncomplete',
       }
       : state.current,
-    todos: state.todos!.map((t) => t.guid === guid
+    todos: state.todos!.map((t) => t.id === id
       ? {
         ...t,
         isPending: false,
@@ -140,29 +140,29 @@ export const reducer = createReducer(
       : t
     ),
   })),
-  on(TodoActions.remove, (state, { guid }) => ({
+  on(TodoActions.remove, (state, { id }) => ({
     ...state,
-    current: state.current?.guid === guid
+    current: state.current?.id === id
       ? { ...state.current, isPending: true, errorMessage: null }
       : state.current,
-    todos: state.todos?.map((t) => t.guid === guid
+    todos: state.todos?.map((t) => t.id === id
       ? { ...t, isPending: true, errorMessage: null }
       : t
     ) ?? null,
   })),
-  on(TodoApiActions.removeSuccess, (state, { guid }) => ({
+  on(TodoApiActions.removeSuccess, (state, { id }) => ({
     ...state,
-    todos: state.todos!.filter((t) => t.guid !== guid),
+    todos: state.todos!.filter((t) => t.id !== id),
   })),
   on(
     TodoApiActions.updateFailure,
     TodoApiActions.removeFailure,
-    (state, { guid }) => ({
+    (state, { id }) => ({
       ...state,
-      current: state.current?.guid === guid
+      current: state.current?.id === id
         ? { ...state.current, isPending: false, errorMessage: 'Try again' }
         : state.current,
-      todos: state.todos!.map((t) => t.guid === guid
+      todos: state.todos!.map((t) => t.id === id
         ? { ...t, isPending: false, errorMessage: 'Try again' }
         : t
       ),

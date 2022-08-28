@@ -24,12 +24,12 @@ export const getByIdFailure = createAction(
 
 export const createSuccess = createAction(
   '[Todo/API] Create Todo Success',
-  props<{ guid: string; }>()
+  props<{ id: string; }>()
 );
 
 export const createFailure = createAction(
   '[Todo/API] Create Todo Failure',
-  props<{ guid: string; error: any; }>()
+  props<{ id: string; error: any; }>()
 );
 
 export const updateSuccess = createAction(
@@ -39,35 +39,35 @@ export const updateSuccess = createAction(
 
 export const updateFailure = createAction(
   '[Todo/API] Update Todo Failure',
-  props<{ guid: string, error: any; }>()
+  props<{ id: string, error: any; }>()
 );
 
 export const completeSuccess = createAction(
   '[Todo/API] Complete Todo Success',
-  props<{ guid: string; }>()
+  props<{ id: string; }>()
 );
 
 export const completeFailure = createAction(
   '[Todo/API] Complete Todo Failure',
-  props<{ guid: string, error: any; }>()
+  props<{ id: string, error: any; }>()
 );
 
 export const uncompleteSuccess = createAction(
   '[Todo/API] Uncomplete Todo Success',
-  props<{ guid: string; }>()
+  props<{ id: string; }>()
 );
 
 export const uncompleteFailure = createAction(
   '[Todo/API] Uncomplete Todo Failure',
-  props<{ guid: string, error: any; }>()
+  props<{ id: string, error: any; }>()
 );
 
 export const removeSuccess = createAction(
   '[Todo/API] Remove Todo Success',
-  props<{ guid: string; }>()
+  props<{ id: string; }>()
 );
 
 export const removeFailure = createAction(
   '[Todo/API] Remove Todo Failure',
-  props<{ guid: string; error: any; }>()
+  props<{ id: string; error: any; }>()
 );

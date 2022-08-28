@@ -14,14 +14,14 @@ export class TodoViewComponent {
   @Output() remove = new EventEmitter<string>();
 
   onComplete() {
-    this.complete.emit(this.todo.guid);
+    this.complete.emit(this.todo.id);
   }
 
   onUncomplete() {
-    this.uncomplete.emit(this.todo.guid);
+    this.uncomplete.emit(this.todo.id);
   }
 
   onRemove() {
-    this.remove.emit(this.todo.guid);
+    this.remove.emit(this.todo.id);
   }
 }

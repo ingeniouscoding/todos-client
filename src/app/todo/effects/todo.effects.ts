@@ -36,8 +36,8 @@ export class TodoEffects {
   getById$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.getById),
-      switchMap(({ guid }) => this.todoService
-        .getById(guid)
+      switchMap(({ id }) => this.todoService
+        .getById(id)
         .pipe(
           map((todo) => TodoApiActions.getByIdSuccess({
             todo: { ...todo, errorMessage: null }
@@ -56,9 +56,9 @@ export class TodoEffects {
       concatMap(({ dto }) => this.todoService
         .create(dto)
         .pipe(
-          map(() => TodoApiActions.createSuccess({ guid: dto.guid })),
+          map(() => TodoApiActions.createSuccess({ id: dto.id })),
           catchError(({ error }) =>
-            of(TodoApiActions.createFailure({ guid: dto.guid, error }))
+            of(TodoApiActions.createFailure({ id: dto.id, error }))
           )
         )
       )
@@ -68,12 +68,12 @@ export class TodoEffects {
   complete$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.complete),
-      mergeMap(({ guid }) => this.todoService
-        .complete(guid)
+      mergeMap(({ id }) => this.todoService
+        .complete(id)
         .pipe(
-          map(() => TodoApiActions.completeSuccess({ guid })),
+          map(() => TodoApiActions.completeSuccess({ id })),
           catchError(({ error }) =>
-            of(TodoApiActions.completeFailure({ guid, error }))
+            of(TodoApiActions.completeFailure({ id, error }))
           )
         )
       )
@@ -83,12 +83,12 @@ export class TodoEffects {
   uncomplete$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.uncomplete),
-      mergeMap(({ guid }) => this.todoService
-        .uncomplete(guid)
+      mergeMap(({ id }) => this.todoService
+        .uncomplete(id)
         .pipe(
-          map(() => TodoApiActions.uncompleteSuccess({ guid })),
+          map(() => TodoApiActions.uncompleteSuccess({ id })),
           catchError(({ error }) =>
-            of(TodoApiActions.uncompleteFailure({ guid, error }))
+            of(TodoApiActions.uncompleteFailure({ id, error }))
           )
         )
       )
@@ -108,17 +108,17 @@ export class TodoEffects {
   //           if (type === TodoActions.complete.type) {
   //             return TodoApiActions.completeSuccess({ todo });
   //           }
-  //           this.router.navigate(['todos', todo.guid]);
+  //           this.router.navigate(['todos', todo.id]);
   //           return TodoApiActions.updateSuccess({ todo });
   //         }),
   //         catchError(({ error }) => {
   //           if (type === TodoActions.complete.type) {
   //             return of(TodoApiActions.completeFailure({
-  //               guid: dto.guid,
+  //               id: dto.id,
   //               error,
   //             }));
   //           }
-  //           return of(TodoApiActions.updateFailure({ guid: dto.guid, error }));
+  //           return of(TodoApiActions.updateFailure({ id: dto.id, error }));
   //         })
   //       )
   //     )
@@ -128,12 +128,12 @@ export class TodoEffects {
   remove$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TodoActions.remove),
-      mergeMap(({ guid }) => this.todoService
-        .remove(guid)
+      mergeMap(({ id }) => this.todoService
+        .remove(id)
         .pipe(
-          map(() => TodoApiActions.removeSuccess({ guid })),
+          map(() => TodoApiActions.removeSuccess({ id })),
           catchError(({ error }) =>
-            of(TodoApiActions.removeFailure({ guid, error }))
+            of(TodoApiActions.removeFailure({ id, error }))
           )
         )
       )

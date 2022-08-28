@@ -20,14 +20,14 @@ export class ShowContainerComponent implements OnInit {
       map(([todo, page]) => ({ todo, page }))
     );
 
-  private guid: string;
+  private id: string;
 
   constructor(private store: Store, route: ActivatedRoute) {
-    this.guid = route.snapshot.params['guid'];
+    this.id = route.snapshot.params['id'];
   }
 
   ngOnInit(): void {
-    this.store.dispatch(TodoActions.getById({ guid: this.guid }));
+    this.store.dispatch(TodoActions.getById({ id: this.id }));
   }
 
 }

@@ -1,5 +1,5 @@
 export interface TodoDto {
-  guid: string;
+  id: string;
   content: string;
   isComplete: boolean;
 }
@@ -10,11 +10,11 @@ export interface Todo extends TodoDto {
 }
 
 export interface CreateTodoDto {
-  guid: string;
+  id: string;
   content: string;
 }
 
 export interface UpdateTodoDto {
-  guid: string;
+  id: string;
   content?: string;
 }

@@ -26,15 +26,15 @@ export class ListPageComponent implements OnInit {
     this.store.dispatch(TodoActions.getAll());
   }
 
-  onComplete(guid: string) {
-    this.store.dispatch(TodoActions.complete({ guid }));
+  onComplete(id: string) {
+    this.store.dispatch(TodoActions.complete({ id }));
   }
 
-  onUncomplete(guid: string) {
-    this.store.dispatch(TodoActions.uncomplete({ guid }));
+  onUncomplete(id: string) {
+    this.store.dispatch(TodoActions.uncomplete({ id }));
   }
 
-  onRemove(guid: string) {
-    this.store.dispatch(TodoActions.remove({ guid }));
+  onRemove(id: string) {
+    this.store.dispatch(TodoActions.remove({ id }));
   }
 }

@@ -20,7 +20,7 @@ const routes: Routes = [
         title: 'Todos | List',
       },
       {
-        path: ':guid',
+        path: ':id',
         component: ShowContainerComponent,
         children: [
           {

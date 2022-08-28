@@ -23,8 +23,8 @@ export class CreateTodoComponent {
   onSave(): void {
     const form = this.fg.getRawValue();
     if (form.content) {
-      const guid = uuidv4();
-      const dto = { ...form, guid };
+      const id = uuidv4();
+      const dto = { ...form, id };
       this.store.dispatch(TodoActions.create({ dto }));
       this.fg.reset();
     }

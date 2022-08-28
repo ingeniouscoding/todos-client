@@ -17,28 +17,29 @@ export class TodoService {
     return this.http.get<TodoDto[]>(url);
   }
 
-  getById(guid: string) {
-    return this.http.get<TodoDto>(`${url}/${guid}`);
+  getById(id: string) {
+    return this.http.get<TodoDto>(`${url}/${id}`);
   }
 
   create(dto: CreateTodoDto): Observable<TodoDto> {
-    return this.http.post<TodoDto>(url, dto);
+    const { id, ...todo } = dto;
+    return this.http.post<TodoDto>(url, { ...todo, guid: id });
   }
 
   update(dto: UpdateTodoDto) {
-    const { guid, ...todo } = dto;
-    return this.http.patch<TodoDto>(`${url}/${guid}`, todo);
+    const { id, ...todo } = dto;
+    return this.http.patch<TodoDto>(`${url}/${id}`, todo);
   }
 
-  complete(gui: string): Observable<void> {
-    return this.http.post<void>(`${url}/${gui}/complete`, {});
+  complete(id: string): Observable<void> {
+    return this.http.post<void>(`${url}/${id}/complete`, {});
   }
 
-  uncomplete(guid: string): Observable<void> {
-    return this.http.post<void>(`${url}/${guid}/uncomplete`, {});
+  uncomplete(id: string): Observable<void> {
+    return this.http.post<void>(`${url}/${id}/uncomplete`, {});
   }
 
-  remove(guid: string): Observable<void> {
-    return this.http.delete<void>(`${url}/${guid}`);
+  remove(id: string): Observable<void> {
+    return this.http.delete<void>(`${url}/${id}`);
   }
 }

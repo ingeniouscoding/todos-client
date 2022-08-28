@@ -6,7 +6,7 @@ export const getAll = createAction('[Todos] Get All Todos');
 
 export const getById = createAction(
   '[Todos] Get Todo By ID',
-  props<{ guid: string; }>()
+  props<{ id: string; }>()
 );
 
 export const create = createAction(
@@ -21,15 +21,15 @@ export const update = createAction(
 
 export const complete = createAction(
   '[Todos] Complete Todo',
-  props<{ guid: string; }>()
+  props<{ id: string; }>()
 );
 
 export const uncomplete = createAction(
   '[Todos] Uncomplete Todo',
-  props<{ guid: string; }>()
+  props<{ id: string; }>()
 );
 
 export const remove = createAction(
   '[Todos] Remove Todo',
-  props<{ guid: string; }>()
+  props<{ id: string; }>()
 );

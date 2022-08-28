@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs';
+import { filter, tap } from 'rxjs';
 
 import { TodoActions } from '../../actions';
 import * as fromTodos from '../../reducers';
@@ -13,17 +13,16 @@ import * as fromTodos from '../../reducers';
 })
 export class EditPageComponent {
   public fg = this.fb.group({
-    guid: '',
+    id: '',
     content: '',
   });
 
   public todo$ = this.store.select(fromTodos.selectCurrentTodo)
     .pipe(
+      filter((todo) => !todo?.isPending),
       tap((todo) => {
-        if (todo !== null && !todo.isPending) {
-          this.fg.controls.guid.setValue(todo.guid);
-          this.fg.controls.content.setValue(todo.content);
-        }
+        this.fg.controls.id.setValue(todo!.id);
+        this.fg.controls.content.setValue(todo!.content);
       })
     );
 

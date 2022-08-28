@@ -1,7 +1,7 @@
-<h3>{{ todo.guid }}</h3>
+<h3>{{ todo.id }}</h3>
 <h1>{{ todo.content }}</h1>
 <input type="checkbox" [checked]="todo.isComplete" disabled>
-<a [routerLink]="['/todos', todo.guid, 'edit']">Edit</a>
+<a [routerLink]="['/todos', todo.id, 'edit']">Edit</a>
 
 <app-todo-item-actions [isComplete]="todo.isComplete"
   (complete)="onComplete()"
