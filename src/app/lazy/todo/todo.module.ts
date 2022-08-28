@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { LayoutModule } from 'src/app/layout/layout.module';
+import { LayoutModule } from 'src/app/global/layout/layout.module';
 import {
   CreateTodoComponent,
   EditPageComponent,

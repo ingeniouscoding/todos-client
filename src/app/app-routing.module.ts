@@ -7,11 +7,18 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    loadChildren: () => import('./lazy/home/home.module')
+      .then((m) => m.HomeModule),
   },
   {
     path: 'todos',
-    loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule),
+    loadChildren: () => import('./lazy/todo/todo.module')
+      .then(m => m.TodoModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./lazy/auth-ui/auth-ui.module')
+      .then((m) => m.AuthUiModule),
   },
 ];
 

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AuthActions } from 'src/app/auth/actions';
-import * as fromAuth from 'src/app/auth/reducers';
+import { AuthActions } from 'src/app/global/auth/actions';
+import * as fromAuth from 'src/app/global/auth/reducers';
 
 @Component({
   selector: 'app-layout-basic',

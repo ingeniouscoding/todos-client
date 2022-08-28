@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { RegisterPageActions } from '../../actions';
-import { RegisterCredentials } from '../../models';
+import { RegisterPageActions } from 'src/app/global/auth/actions';
+import { RegisterCredentials } from 'src/app/global/auth/models';
 
 @Component({
   selector: 'app-register-page',

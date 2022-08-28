@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { LoginPageActions } from '../../actions';
-import { LoginCredentials } from '../../models';
+import { LoginPageActions } from 'src/app/global/auth/actions';
+import { LoginCredentials } from 'src/app/global/auth/models';
 
 @Component({
   selector: 'app-login-page',
