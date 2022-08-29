@@ -1,1 +1,1 @@
-export * from './guest-can-activate.guard';
+export { GuestCanActivateGuard } from './guest-can-activate.guard';
