@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { effects } from './effects';
+import { GuestCanActivateGuard } from './guards';
 import { authorizationInterceptorProvider } from './interceptors';
 import * as fromAuth from './reducers';
 
@@ -15,6 +16,7 @@ import * as fromAuth from './reducers';
   ],
   providers: [
     authorizationInterceptorProvider,
+    GuestCanActivateGuard,
   ],
 })
 export class AuthModule { }

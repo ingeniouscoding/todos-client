@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 
 import { TodoActions } from '../../actions';
-import { UpdateTodoDto } from '../../models';
 import * as fromTodos from '../../reducers';
 
 @Component({
